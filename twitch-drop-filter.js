@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Twitch Drop Filter
+// @name         Twitch Inventory Drop Filter
 // @version      1.3
 // @description  Filtre les Drops Twitch selon une liste de noms spécifiques
 // @author       ljere76
@@ -26,19 +26,8 @@
 
             const gameName = gameLink.textContent.trim();
             const shouldShow = forceShow || shouldKeepDrop(gameName);
-            const towerContainer = item.parentElement.querySelector('.tw-tower');
-
-            // Apply display: flex to specific elements
-            const flexContainer = item.closest('div.ilRKfU:nth-child(3) > div:nth-child(2)');
-            if (flexContainer) {
-                flexContainer.style.display = shouldShow ? 'flex' : 'none';
-            } else {
-                item.style.display = shouldShow ? 'block' : 'none';
-            }
-
-            if (towerContainer) {
-                towerContainer.style.display = shouldShow ? 'flex' : 'none';
-            }
+          
+          	item.parentNode.style.cssText =  shouldShow ? '' : 'display: none !important';
         });
     }
 
@@ -80,9 +69,17 @@
 
         const resetButton = document.createElement('button');
         resetButton.textContent = 'Réinitialiser le Filtrage';
-        resetButton.style = refreshButton.style;
-        resetButton.onmouseover = () => resetButton.style.background = '#7d2df0';
-        resetButton.onmouseout = () => resetButton.style.background = '#9147ff';
+        resetButton.style = `
+            background: #2f2f35;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background 0.2s;
+        `;
+        resetButton.onmouseover = () => resetButton.style.background = '#3e3e42';
+        resetButton.onmouseout = () => resetButton.style.background = '#2f2f35';
         resetButton.onclick = () => {
             isFiltering = false;
             filterDrops(true);
@@ -90,9 +87,17 @@
 
         const reloadButton = document.createElement('button');
         reloadButton.textContent = 'Rafraîchir la Page';
-        reloadButton.style = refreshButton.style;
-        reloadButton.onmouseover = () => reloadButton.style.background = '#7d2df0';
-        reloadButton.onmouseout = () => reloadButton.style.background = '#9147ff';
+        reloadButton.style = `
+            background: #2f2f35;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background 0.2s;
+        `;
+        reloadButton.onmouseover = () => reloadButton.style.background = '#3e3e42';
+        reloadButton.onmouseout = () => reloadButton.style.background = '#2f2f35';
         reloadButton.onclick = () => {
             location.reload();
         };
